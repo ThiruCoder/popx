@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePage } from "./context/usePage";
 
 import Landing from "./pages/Landing";
@@ -9,6 +9,14 @@ import Profile from "./pages/Profile";
 import FooterNav from "./components/FooterNav";
 
 function App() {
+  const [formData, setFormData] = useState({
+    fullname: '',
+    number: '',
+    address: '',
+    email: '',
+    companyName: ''
+  });
+
   const { pages, pageIndex } = usePage();
   const navigate = useNavigate();
 
@@ -19,12 +27,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<Landing formData={formData} setFormData={setFormData} />} />
+        <Route path="/login" element={<Login formData={formData} setFormData={setFormData} />} />
+        <Route path="/signup" element={<Signup formData={formData} setFormData={setFormData} />} />
+        <Route path="/profile" element={<Profile formData={formData} setFormData={setFormData} />} />
       </Routes>
-      <FooterNav />
     </>
   );
 }
